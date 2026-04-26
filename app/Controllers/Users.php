@@ -7,30 +7,33 @@ use App\Models\UsersModel;
 class Users extends BaseController
 {
     protected $users;
+    protected $db;
 
     public function __construct()
     {
         $this->users = new UsersModel();
+        $this->db = \Config\Database::connect();
     }
 
     // ================= INDEX =================
     public function index()
     {
-        $keyword = $this->request->getGet('keyword');
-        $role = $this->request->getGet('role');
+        $builder = $this->db->table('users');
 
-        $builder = $this->users;
+        $builder->select('
+            users.*,
+            COUNT(peminjaman.id_peminjaman) as total_pinjam
+        ');
 
-        if ($keyword) {
-            $builder = $builder->like('nama', $keyword);
-        }
+        $builder->join(
+            'peminjaman',
+            'peminjaman.id_anggota = users.id',
+            'left'
+        );
 
-        if ($role) {
-            $builder = $builder->where('role', $role);
-        }
+        $builder->groupBy('users.id');
 
-        $data['users'] = $builder->paginate(10);
-        $data['pager'] = $this->users->pager;
+        $data['users'] = $builder->get()->getResultArray();
 
         return view('users/index', $data);
     }
@@ -85,6 +88,7 @@ class Users extends BaseController
         $namaFoto = $user['foto'];
 
         if ($foto && $foto->isValid() && !$foto->hasMoved()) {
+
             if (!empty($user['foto']) && file_exists(FCPATH . 'uploads/users/' . $user['foto'])) {
                 unlink(FCPATH . 'uploads/users/' . $user['foto']);
             }
@@ -142,17 +146,17 @@ class Users extends BaseController
         $keyword = $this->request->getGet('keyword');
         $role = $this->request->getGet('role');
 
-        $builder = $this->users;
+        $builder = $this->db->table('users');
 
         if ($keyword) {
-            $builder = $builder->like('nama', $keyword);
+            $builder->like('nama', $keyword);
         }
 
         if ($role) {
-            $builder = $builder->where('role', $role);
+            $builder->where('role', $role);
         }
 
-        $data['users'] = $builder->findAll();
+        $data['users'] = $builder->get()->getResultArray();
 
         return view('users/print', $data);
     }

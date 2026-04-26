@@ -1,49 +1,135 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<nav style="background: #333; padding: 10px; margin-bottom: 20px;">
-    <a href="<?= base_url('/') ?>" style="color: white; margin-right: 15px; text-decoration: none;">Home</a>
-    <a href="<?= base_url('peminjaman') ?>" style="color: white; margin-right: 15px; text-decoration: none;">Peminjaman</a>
-    <a href="<?= base_url('kategori') ?>" style="color: white; font-weight: bold; text-decoration: none;">Data Kategori</a>
-</nav>
 
-<h2>Data Kategori</h2>
+<style>
+.navbar {
+    background: #2c3e50;
+    padding: 12px 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+}
 
-<div style="margin-bottom: 15px;">
-    <a href="<?= base_url('/') ?>" style="
-        display: inline-block;
-        text-decoration: none; 
-        padding: 8px 15px; 
-        background-color: #e7e7e7; 
-        color: black; 
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 14px;
-        font-family: Arial, sans-serif;
-    ">
-        &larr; Kembali ke Dashboard
-    </a>
+.navbar a {
+    color: white;
+    text-decoration: none;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+.navbar a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    font-family: Arial;
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+.btn-back {
+    display: inline-block;
+    margin-bottom: 15px;
+    padding: 8px 12px;
+    background: #ecf0f1;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+}
+
+.btn-back:hover {
+    background: #dfe6e9;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #fff;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background: #3498db;
+    color: white;
+    padding: 10px;
+    text-align: left;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+tr:hover {
+    background: #f9f9f9;
+}
+
+.btn-delete {
+    color: red;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.btn-delete:hover {
+    text-decoration: underline;
+}
+</style>
+
+<!-- NAV -->
+<div class="navbar">
+    <a href="<?= base_url('/') ?>">Home</a>
+    <a href="<?= base_url('peminjaman') ?>">Peminjaman</a>
+    <a href="<?= base_url('kategori') ?>"><b>Kategori</b></a>
 </div>
 
-<table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-    <tr style="background-color: #f2f2f2;">
-        <th>ID</th>
-        <th>Nama Kategori</th>
-        <th>Aksi</th>
-    </tr>
+<div class="container">
 
-    <?php foreach ($kategori as $k): ?>
-    <tr>
-        <td align="center"><?= $k['id_kategori'] ?></td>
-        <td><?= $k['nama_kategori'] ?></td>
-        <td align="center">
-            <a href="<?= base_url('kategori/delete/'.$k['id_kategori']) ?>" 
-               onclick="return confirm('Yakin mau hapus?')"
-               style="color: red; text-decoration: none;">
-               Hapus
-            </a>
-        </td>
-    </tr>
-    <?php endforeach; ?>
-</table>
+    <h2>📁 Data Kategori</h2>
+
+    <a href="<?= base_url('/') ?>" class="btn-back">
+        ⬅ Kembali ke Dashboard
+    </a>
+
+    <table>
+        <thead>
+            <tr>
+                <th width="80">ID</th>
+                <th>Nama Kategori</th>
+                <th width="120">Aksi</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php foreach ($kategori as $k): ?>
+            <tr>
+                <td style="text-align:center;">
+                    <?= $k['id_kategori'] ?>
+                </td>
+
+                <td>
+                    <?= $k['nama_kategori'] ?>
+                </td>
+
+                <td style="text-align:center;">
+                    <a href="<?= base_url('kategori/delete/'.$k['id_kategori']) ?>"
+                       class="btn-delete"
+                       onclick="return confirm('Yakin mau hapus?')">
+                       Hapus
+                    </a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+
+    </table>
+
+</div>
 
 <?= $this->endSection() ?>

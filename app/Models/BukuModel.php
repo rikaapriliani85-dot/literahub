@@ -17,9 +17,10 @@ class BukuModel extends Model
         'tahun_terbit',
         'jumlah',
         'tersedia',
-        'descripsi',
+        'deskripsi',
         'cover'
     ];
+
 
     protected $useTimestamps = false;
 

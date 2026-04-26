@@ -18,20 +18,29 @@
             <th>Penerbit</th>
             <th>Tahun</th>
             <th>Jumlah</th>
+            <th>Cover</th>
         </tr>
 
         <?php $no = 1;
-foreach ($buku as $b): ?>
-    <tr>
-        <td><?= $no++ ?></td>
-        <td><?= $b['judul'] ?? '-' ?></td>
-        <td><?= $b['nama_penulis'] ?? '-' ?></td>
-        <td><?= $b['nama_kategori'] ?? '-' ?></td>
-        <td><?= $b['nama_penerbit'] ?? '-' ?></td>
-        <td><?= $b['tahun_terbit'] ?? '-' ?></td>
-        <td><?= $b['jumlah'] ?? '-' ?></td>
-    </tr>
-<?php endforeach; ?>
+        foreach ($buku as $b): ?>
+            <tr>
+                <td><?= $no++ ?></td>
+                <td><?= $b['judul'] ?></td>
+                <td><?= $b['nama_kategori'] ?></td>
+                <td><?= $b['nama_penulis'] ?></td>
+                <td><?= $b['nama_penerbit'] ?></td>
+                <td><?= $b['tahun_terbit'] ?></td>
+                <td><?= $b['jumlah'] ?></td>
+                <td>
+                    <?php if ($b['cover']): ?>
+                        <?= $b['cover'] ?>
+                    <?php else: ?>
+                        -
+                    <?php endif; ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+
     </table>
 
 </body>

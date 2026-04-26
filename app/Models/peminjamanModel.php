@@ -11,9 +11,13 @@ class PeminjamanModel extends Model
 
     protected $allowedFields = [
         'id_buku',
-        'nama',
         'tanggal_pinjam',
         'tanggal_kembali',
-        'status'
+        'status',
+        'id_anggota',
+        'id_petugas',
+        'foto'
     ];
+
+    protected $useTimestamps = false;
 }

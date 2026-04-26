@@ -19,7 +19,6 @@ $routes->get('/dashboard', 'Home::index');
 $routes->get('users', 'Users::index');
 $routes->get('users/create', 'Users::create');
 $routes->post('users/store', 'Users::store');
-
 $routes->get('users/edit/(:num)', 'Users::edit/$1');
 $routes->post('users/update/(:num)', 'Users::update/$1');
 
@@ -28,27 +27,25 @@ $routes->get('users/delete/(:num)', 'Users::delete/$1');
 $routes->get('users/wa/(:num)', 'Users::wa/$1');
 $routes->get('users/print', 'Users::print');
 
-// ================= BUKU =================
 $routes->get('buku', 'Buku::index');
 $routes->get('buku/create', 'Buku::create');
 $routes->post('buku/store', 'Buku::store');
-
 $routes->get('buku/detail/(:num)', 'Buku::detail/$1');
 $routes->get('buku/edit/(:num)', 'Buku::edit/$1');
 $routes->post('buku/update/(:num)', 'Buku::update/$1');
-
 $routes->get('buku/delete/(:num)', 'Buku::delete/$1');
 $routes->get('buku/print', 'Buku::print');
 $routes->get('buku/wa/(:num)', 'Buku::wa/$1');
 
 // ================= PEMINJAMAN =================
-$routes->get('peminjaman', 'Peminjaman::index');
-$routes->get('peminjaman/create', 'Peminjaman::create');
-$routes->post('peminjaman/store', 'Peminjaman::store');
-
-$routes->get('peminjaman/detail/(:num)', 'Peminjaman::detail/$1');
+// Peminjaman
+$routes->get('/peminjaman', 'Peminjaman::index');
+$routes->get('/peminjaman/create', 'Peminjaman::create');
+$routes->post('/peminjaman/store', 'Peminjaman::store');
+$routes->get('/peminjaman/edit/(:num)', 'Peminjaman::edit/$1');
+$routes->post('/peminjaman/update/(:num)', 'Peminjaman::update/$1');
 $routes->get('peminjaman/delete/(:num)', 'Peminjaman::delete/$1');
-$routes->get('peminjaman/kembalikan/(:num)', 'Peminjaman::kembalikan/$1');
+$routes->get('/peminjaman/detail/(:num)', 'Peminjaman::detail/$1');
 
 // ================= KATEGORI =================
 $routes->get('kategori', 'Kategori::index');
@@ -63,10 +60,15 @@ $routes->get('kategori/print', 'Kategori::print');
 $routes->get('kategori/detail/(:num)', 'Kategori::detail/$1');
 
 // ================= RAK =================
-$routes->get('rak', 'RakBuku::index');
-$routes->get('rak/create', 'RakBuku::create');
-$routes->post('rak/store', 'RakBuku::store');
-$routes->get('rak/delete/(:num)', 'RakBuku::hapus/$1');
+$routes->get('/rak', 'Rak::index');
+$routes->get('/rak/create', 'Rak::create');
+$routes->post('/rak/store', 'Rak::store');
+$routes->get('/rak/edit/(:num)', 'Rak::edit/$1');
+$routes->post('/rak/update/(:num)', 'Rak::update/$1');
+$routes->get('/rak/delete/(:num)', 'Rak::delete/$1');
+$routes->post('/rak/delete/(:num)', 'Rak::delete/$1');
+
+$routes->get('/rak/detail/(:num)', 'Rak::detail/$1');
 
 // ================= PENERBIT =================
 $routes->get('penerbit', 'Penerbit::index');
@@ -80,6 +82,8 @@ $routes->get('penulis/create', 'Penulis::create');
 $routes->post('penulis/store', 'Penulis::store');
 $routes->get('penulis/delete/(:num)', 'Penulis::delete/$1');
 
+$routes->post('penerbit/delete/(:num)', 'Penerbit::delete/$1');
+
 // ================= BACKUP & RESTORE =================
 $routes->get('/backup', 'Backup::index');
 
@@ -87,16 +91,6 @@ $routes->get('/restore', 'Restore::index');
 $routes->post('/restore/auth', 'Restore::auth');
 $routes->get('/restore/form', 'Restore::form');
 $routes->post('/restore/process', 'Restore::process');
-
-// ================= PENGIRIMAN =================
-$routes->get('pengiriman', 'Pengiriman::index');
-$routes->get('pengiriman/create', 'Pengiriman::create');
-$routes->post('pengiriman/store', 'Pengiriman::store');
-
-$routes->get('pengiriman/edit/(:num)', 'Pengiriman::edit/$1');
-$routes->post('pengiriman/update/(:num)', 'Pengiriman::update/$1');
-
-$routes->get('pengiriman/delete/(:num)', 'Pengiriman::delete/$1');
 
 // ================= ULASAN =================
 $routes->get('ulasan', 'Ulasan::index');
@@ -145,4 +139,8 @@ $routes->post('pengaturan/save', 'Pengaturan::save');
 
 $routes->get('pengembalian', 'Pengembalian::index');
 $routes->get('pengembalian/create', 'Pengembalian::create');
+$routes->get('pengembalian/create', 'Pengembalian::create');
 $routes->post('pengembalian/store', 'Pengembalian::store');
+$routes->get('pengembalian/detail/(:num)', 'Pengembalian::detail/$1');
+$routes->get('pengembalian/delete/(:num)', 'Pengembalian::delete/$1');
+$routes->get('pengembalian/hitung/(:num)', 'Pengembalian::hitung/$1');

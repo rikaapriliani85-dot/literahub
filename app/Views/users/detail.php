@@ -6,7 +6,7 @@
     <h3>Detail User</h3>
 
     <table border="1" cellpadding="5" cellspacing="0">
-        <tr>
+   
             <td>Nama</td>
             <td><?= $user['nama'] ?></td>
         </tr>

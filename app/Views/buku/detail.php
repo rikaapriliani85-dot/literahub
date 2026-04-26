@@ -1,23 +1,19 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-
 <h3>Detail Buku</h3>
 
 <table border="1">
-    <tr>
+   <tr>
         <td>ID</td>
         <td><?= $buku['id_buku'] ?></td>
     </tr>
     <tr>
-        <td>Judul</td>
-        <td><?= $buku['judul'] ?></td>
+        <td>ISBN</td>
+        <td><?= $buku['isbn'] ?? '-' ?></td>
     </tr>
     <tr>
-      <h2><?= $buku['judul'] ?></h2>
-
-<img src="<?= base_url('uploads/buku/' . $buku['cover']) ?>" width="100">
-<p>Penulis: <?= $buku['nama_penulis'] ?></p>
-<p>Penerbit: <?= $buku['nama_penerbit'] ?></p>
+        <td>Judul</td>
+        <td><?= $buku['judul'] ?></td>
     </tr>
     <tr>
         <td>Kategori</td>
@@ -48,15 +44,30 @@
         <td><?= $buku['tersedia'] ?></td>
     </tr>
     <tr>
-    <td>Deskripsi</td>
-    <td><?= $buku['deskripsi'] ?? '-' ?></td>
-</tr>
+        <td>Deskripsi</td>
+        <td><?= $buku['deskripsi'] ?></td>
+    </tr>
+    <tr>
+        <td>Cover</td>
+        <td>
+            <?php if ($buku['cover']): ?>
+
+                <?php $ext = pathinfo($buku['cover'], PATHINFO_EXTENSION); ?>
+
+                <?php if (!empty($buku['cover']) && file_exists(FCPATH . 'uploads/buku/' . $buku['cover'])): ?>
+    <img src="<?= base_url('uploads/buku/' . $buku['cover']) ?>" width="100">
+<?php else: ?>
+    <img src="<?= base_url('img/default.jpg') ?>" width="100">
+<?php endif; ?>
+            <?php else: ?>
+                -
+            <?php endif; ?>
+        </td>
+    </tr>
 </table>
 
 <br>
 
 <a href="<?= base_url('buku') ?>">Kembali</a>
 <a href="<?= base_url('buku/wa/' . $buku['id_buku']) ?>" target="_blank">Kirim WA</a>
-<a href="<?= base_url('buku/detail/1') ?>">
-
 <?= $this->endSection() ?>

@@ -2,39 +2,53 @@
 
 namespace App\Controllers;
 
+use Config\Database;
+
 class Kategori extends BaseController
 {
-   public function index()
-{
-    $db = \Config\Database::connect();
+    protected $db;
 
-    $data['kategori'] = $db->table('kategori')->get()->getResultArray();
+    public function __construct()
+    {
+        $this->db = Database::connect();
+    }
 
-    return view('kategori/index', $data);
-}
+    // ================= LIST =================
+    public function index()
+    {
+        $data['kategori'] = $this->db
+            ->table('kategori')
+            ->get()
+            ->getResultArray();
 
-public function create()
-{
-    return view('kategori/create');
-}
-public function store()
-{
-    $db = \Config\Database::connect();
+        return view('kategori/index', $data);
+    }
 
-    $db->table('kategori')->insert([
-        'nama_kategori' => $this->request->getPost('nama_kategori')
-    ]);
+    // ================= CREATE PAGE =================
+    public function create()
+    {
+        return view('kategori/create');
+    }
 
-    return redirect()->to('/kategori');
-}
-public function delete($id)
-{
-    $db = \Config\Database::connect();
+    // ================= STORE DATA =================
+    public function store()
+    {
+        $this->db->table('kategori')->insert([
+            'nama_kategori' => $this->request->getPost('nama_kategori')
+        ]);
 
-    $db->table('kategori')->delete([
-        'id_kategori' => $id
-    ]);
+        return redirect()->to(base_url('kategori'))
+            ->with('success', 'Kategori berhasil ditambahkan');
+    }
 
-    return redirect()->to('/kategori');
-}
+    // ================= DELETE =================
+    public function delete($id)
+    {
+        $this->db->table('kategori')
+            ->where('id_kategori', $id)
+            ->delete();
+
+        return redirect()->to(base_url('kategori'))
+            ->with('success', 'Kategori berhasil dihapus');
+    }
 }

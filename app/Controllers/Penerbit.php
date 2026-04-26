@@ -14,11 +14,14 @@ class Penerbit extends BaseController
     }
 
     public function index()
-    {
-        $data['penerbit'] = $this->penerbit->findAll();
-        return view('penerbit/index', $data);
-    }
+{
+    $db = \Config\Database::connect();
 
+    $data['penerbit'] = $db->table('penerbit')
+    ->get()
+    ->getResultArray();
+    return view('penerbit/index', $data);
+}
     public function create()
     {
         return view('penerbit/create');

@@ -1,54 +1,135 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
-<h3>Tambah Penarikan</h3>
 
-<a href="<?= base_url('penarikan') ?>">← Kembali</a>
+<style>
+.container-box {
+    max-width: 700px;
+    margin: 30px auto;
+    font-family: Arial;
+}
 
-<form action="<?= base_url('penarikan/store') ?>" method="post">
+.card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
 
-<label>ID Peminjaman</label><br>
-<select name="id_peminjaman">
-<?php foreach ($peminjaman as $p): ?>
-<option value="<?= $p['id_peminjaman'] ?>">
-    <?= $p['id_peminjaman'] ?>
-</option>
-<?php endforeach; ?>
-</select>
+.title {
+    margin-bottom: 20px;
+    color: #2c3e50;
+}
 
-<br><br>
+.form-group {
+    margin-bottom: 15px;
+}
 
-<label>Alamat</label><br>
-<input type="text" name="alamat">
+label {
+    font-weight: bold;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
+}
 
-<br><br>
+input, select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
 
-<label>Biaya</label><br>
-<input type="number" name="biaya">
+.btn {
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+}
 
-<br><br>
+.btn-save {
+    background: #27ae60;
+    color: white;
+}
 
-<label>Status</label><br>
-<input type="text" name="status">
+.btn-save:hover {
+    background: #219150;
+}
 
-<br><br>
+.btn-back {
+    background: #95a5a6;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin-left: 10px;
+}
 
-<label>Tanggal Ambil</label><br>
-<input type="date" name="tanggal_ambil">
+.btn-back:hover {
+    background: #7f8c8d;
+}
+</style>
 
-<br><br>
+<div class="container-box">
+    <div class="card">
 
-<label>Petugas</label><br>
-<select name="petugas_id">
-<?php foreach ($petugas as $pt): ?>
-<option value="<?= $pt['id_petugas'] ?>">
-    <?= $pt['nama_petugas'] ?>
-</option>
-<?php endforeach; ?>
-</select>
+        <h3 class="title">➕ Tambah Penarikan</h3>
 
-<br><br>
+        <form action="<?= base_url('penarikan/store') ?>" method="post">
 
-<button type="submit">Simpan</button>
+            <div class="form-group">
+                <label>ID Peminjaman</label>
+                <select name="id_peminjaman" required>
+                    <option value="">-- Pilih --</option>
+                    <?php foreach ($peminjaman as $p): ?>
+                        <option value="<?= $p['id_peminjaman'] ?>">
+                            <?= $p['id_peminjaman'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-</form>
+            <div class="form-group">
+                <label>Alamat</label>
+                <input type="text" name="alamat" placeholder="Masukkan alamat">
+            </div>
+
+            <div class="form-group">
+                <label>Biaya</label>
+                <input type="number" name="biaya" placeholder="Masukkan biaya">
+            </div>
+
+            <div class="form-group">
+                <label>Status</label>
+                <select name="status">
+                    <option value="proses">Proses</option>
+                    <option value="selesai">Selesai</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Tanggal Ambil</label>
+                <input type="date" name="tanggal_ambil">
+            </div>
+
+            <div class="form-group">
+                <label>Petugas</label>
+                <select name="petugas_id">
+                    <option value="">-- Pilih Petugas --</option>
+                    <?php foreach ($petugas as $pt): ?>
+                        <option value="<?= $pt['id_petugas'] ?>">
+                            <?= $pt['nama_petugas'] ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-save">💾 Simpan</button>
+            <a href="<?= base_url('penarikan') ?>" class="btn-back">⬅ Kembali</a>
+
+        </form>
+
+    </div>
+</div>
+
 <?= $this->endSection() ?>

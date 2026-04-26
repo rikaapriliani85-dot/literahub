@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 24 Apr 2026 pada 18.10
--- Versi server: 10.4.32-MariaDB
--- Versi PHP: 8.2.12
+-- Generation Time: Apr 24, 2026 at 08:25 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,85 +24,56 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `anggota`
---
-
-CREATE TABLE `anggota` (
-  `id_anggota` int(11) NOT NULL,
-  `nama_anggota` varchar(100) DEFAULT NULL,
-  `alamat` text DEFAULT NULL,
-  `no_hp` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `anggota`
---
-
-INSERT INTO `anggota` (`id_anggota`, `nama_anggota`, `alamat`, `no_hp`) VALUES
-(1, 'caca', 'bandung', 'o85798270577'),
-(2, 'kanii', 'pamarisen', 'o85798270578'),
-(3, 'oranggg', 'sumedang', 'o85798270579'),
-(4, 'noer', 'tanjungsari', 'o85790270579'),
-(5, 'aprilll', 'garuttt', 'o85798270575'),
-(13, 'khikaaaa', 'pamarisen', 'o85798270577');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `buku`
+-- Table structure for table `buku`
 --
 
 CREATE TABLE `buku` (
   `id_buku` int(11) NOT NULL,
-  `judul` varchar(11) NOT NULL,
-  `harga` int(11) DEFAULT NULL,
-  `id_kategori` int(11) NOT NULL,
-  `id_penulis` int(11) NOT NULL,
-  `id_penerbit` int(11) NOT NULL,
-  `tahun_terbit` year(4) NOT NULL,
-  `jumlah` int(11) NOT NULL,
-  `tersedia` int(11) NOT NULL,
-  `descripsi` text NOT NULL,
-  `cover` varchar(255) NOT NULL,
-  `id_rak` int(11) DEFAULT NULL,
-  `deskripsi` text DEFAULT NULL
+  `isbn` varchar(50) DEFAULT NULL,
+  `judul` varchar(255) DEFAULT NULL,
+  `id_kategori` int(11) DEFAULT NULL,
+  `id_penulis` int(11) DEFAULT NULL,
+  `id_penerbit` int(11) DEFAULT NULL,
+  `tahun_terbit` year(4) DEFAULT NULL,
+  `jumlah` int(11) DEFAULT 0,
+  `tersedia` int(11) DEFAULT 0,
+  `deskripsi` text DEFAULT NULL,
+  `cover` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `buku`
+-- Dumping data for table `buku`
 --
 
-INSERT INTO `buku` (`id_buku`, `judul`, `harga`, `id_kategori`, `id_penulis`, `id_penerbit`, `tahun_terbit`, `jumlah`, `tersedia`, `descripsi`, `cover`, `id_rak`, `deskripsi`) VALUES
-(32, 'agrava', NULL, 5, 3, 3, '2002', 2, 2, '', '1777044302_6055340af20e5aa2bdbb.jpg', 10, 'gggg'),
-(33, 'bintang', NULL, 3, 1, 2, '2004', 9, 7, '', '1777044373_b8bf2c423fb2e006f38c.jpg', 11, 'eeeee'),
-(35, 'agrava', NULL, 1, 3, 6, '2007', 8, 9, '', '1777044603_8cb959d8868b4aa8c07c.jpg', 10, 'setr4'),
-(36, 'agrava', NULL, 3, 3, 3, '2006', 3, -1, '', '1777044861_53f5f16a9f2d96c9adb9.jpg', 10, 'qqq'),
-(37, 'agrava', NULL, 3, 3, 3, '2002', 1, 1, '', '1777046053_7586713a1cfe6f994403.jpg', 11, '111frtre');
+INSERT INTO `buku` (`id_buku`, `isbn`, `judul`, `id_kategori`, `id_penulis`, `id_penerbit`, `tahun_terbit`, `jumlah`, `tersedia`, `deskripsi`, `cover`) VALUES
+(1, '978-602-291-662-8', '99 Azab Kubur Indosiar', 3, 3, 6, '2013', 50, 25, 'aasasasasasasa', '1777051324_6d8429f30d1204399cca.png'),
+(2, '978-602-291-662-8', 'Atomic habit', 3, 3, 3, '2011', 50, 50, 'bvcxbcxbcx', '1777052441_60d4cfc41552d22e1636.png');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `buku_rak`
+-- Table structure for table `buku_rak`
 --
 
 CREATE TABLE `buku_rak` (
-  `id_` int(11) NOT NULL,
+  `id_buku_rak` int(11) NOT NULL,
   `id_buku` int(11) NOT NULL,
   `id_rak` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `buku_rak`
+-- Dumping data for table `buku_rak`
 --
 
-INSERT INTO `buku_rak` (`id_`, `id_buku`, `id_rak`) VALUES
-(9, 7, 5),
-(11, 2, 5);
+INSERT INTO `buku_rak` (`id_buku_rak`, `id_buku`, `id_rak`) VALUES
+(12, 1, 3),
+(13, 2, 3),
+(14, 3, 3);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `denda`
+-- Table structure for table `denda`
 --
 
 CREATE TABLE `denda` (
@@ -115,7 +86,7 @@ CREATE TABLE `denda` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detail_peminjaman`
+-- Table structure for table `detail_peminjaman`
 --
 
 CREATE TABLE `detail_peminjaman` (
@@ -126,7 +97,7 @@ CREATE TABLE `detail_peminjaman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `detail_peminjaman`
+-- Dumping data for table `detail_peminjaman`
 --
 
 INSERT INTO `detail_peminjaman` (`id_detail`, `id_peminjaman`, `id_buku`, `jumlah`) VALUES
@@ -139,12 +110,15 @@ INSERT INTO `detail_peminjaman` (`id_detail`, `id_peminjaman`, `id_buku`, `jumla
 (43, 62, 35, 1),
 (44, 63, 33, 2),
 (45, 64, 33, 33),
-(46, 65, 33, 8);
+(46, 65, 33, 8),
+(47, 66, 32, 4),
+(48, 67, 32, 2),
+(49, 68, 1, 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `kategori`
+-- Table structure for table `kategori`
 --
 
 CREATE TABLE `kategori` (
@@ -153,7 +127,7 @@ CREATE TABLE `kategori` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `kategori`
+-- Dumping data for table `kategori`
 --
 
 INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
@@ -166,7 +140,7 @@ INSERT INTO `kategori` (`id_kategori`, `nama_kategori`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `peminjaman`
+-- Table structure for table `peminjaman`
 --
 
 CREATE TABLE `peminjaman` (
@@ -177,27 +151,20 @@ CREATE TABLE `peminjaman` (
   `status` varchar(20) DEFAULT NULL,
   `id_anggota` int(11) NOT NULL,
   `id_petugas` int(11) NOT NULL,
-  `sampul` varchar(255) DEFAULT NULL
+  `foto` varchar(255) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `peminjaman`
+-- Dumping data for table `peminjaman`
 --
 
-INSERT INTO `peminjaman` (`id_peminjaman`, `id_buku`, `tanggal_pinjam`, `tanggal_kembali`, `status`, `id_anggota`, `id_petugas`, `sampul`) VALUES
-(54, NULL, '2026-04-22', NULL, 'dipinjam', 0, 0, NULL),
-(56, NULL, '2026-04-22', NULL, 'dipinjam', 0, 0, NULL),
-(60, NULL, '2026-04-24', NULL, 'dipinjam', 13, 0, NULL),
-(61, NULL, '2026-04-24', NULL, 'dipinjam', 2, 0, NULL),
-(62, NULL, '2026-04-24', NULL, 'dipinjam', 4, 0, NULL),
-(63, NULL, '2026-04-24', NULL, 'dipinjam', 3, 0, NULL),
-(64, NULL, '2026-04-24', NULL, 'dipinjam', 2, 0, NULL),
-(65, NULL, '2026-04-24', NULL, 'dipinjam', 3, 0, NULL);
+INSERT INTO `peminjaman` (`id_peminjaman`, `id_buku`, `tanggal_pinjam`, `tanggal_kembali`, `status`, `id_anggota`, `id_petugas`, `foto`) VALUES
+(73, 1, '2026-04-08', '2026-04-07', 'dipinjam', 9, 8, '1777054836_2ed49362a2b2c3a699b6.png');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penarikan`
+-- Table structure for table `penarikan`
 --
 
 CREATE TABLE `penarikan` (
@@ -211,7 +178,7 @@ CREATE TABLE `penarikan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `penarikan`
+-- Dumping data for table `penarikan`
 --
 
 INSERT INTO `penarikan` (`id_penarikan`, `id_peminjaman`, `alamat`, `biaya`, `status`, `tanggal_ambil`, `petugas_id`) VALUES
@@ -220,7 +187,7 @@ INSERT INTO `penarikan` (`id_penarikan`, `id_peminjaman`, `alamat`, `biaya`, `st
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penerbit`
+-- Table structure for table `penerbit`
 --
 
 CREATE TABLE `penerbit` (
@@ -230,7 +197,7 @@ CREATE TABLE `penerbit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `penerbit`
+-- Dumping data for table `penerbit`
 --
 
 INSERT INTO `penerbit` (`id_penerbit`, `nama_penerbit`, `alamat`) VALUES
@@ -241,7 +208,7 @@ INSERT INTO `penerbit` (`id_penerbit`, `nama_penerbit`, `alamat`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengaturan`
+-- Table structure for table `pengaturan`
 --
 
 CREATE TABLE `pengaturan` (
@@ -253,7 +220,7 @@ CREATE TABLE `pengaturan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `pengaturan`
+-- Dumping data for table `pengaturan`
 --
 
 INSERT INTO `pengaturan` (`id`, `nama_aplikasi`, `denda_per_hari`, `maksimal_pinjam`, `lama_pinjam`) VALUES
@@ -264,7 +231,7 @@ INSERT INTO `pengaturan` (`id`, `nama_aplikasi`, `denda_per_hari`, `maksimal_pin
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengembalian`
+-- Table structure for table `pengembalian`
 --
 
 CREATE TABLE `pengembalian` (
@@ -275,7 +242,7 @@ CREATE TABLE `pengembalian` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `pengembalian`
+-- Dumping data for table `pengembalian`
 --
 
 INSERT INTO `pengembalian` (`id_pengembalian`, `id_peminjaman`, `tgl_di kembali`, `denda`) VALUES
@@ -288,7 +255,7 @@ INSERT INTO `pengembalian` (`id_pengembalian`, `id_peminjaman`, `tgl_di kembali`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pengiriman`
+-- Table structure for table `pengiriman`
 --
 
 CREATE TABLE `pengiriman` (
@@ -304,7 +271,7 @@ CREATE TABLE `pengiriman` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `pengiriman`
+-- Dumping data for table `pengiriman`
 --
 
 INSERT INTO `pengiriman` (`id_pengiriman`, `id_peminjaman`, `alamat`, `biaya`, `status`, `tanggal_kirim`, `id_anggota`, `tanggal_ambil`, `id_petugas`) VALUES
@@ -316,7 +283,7 @@ INSERT INTO `pengiriman` (`id_pengiriman`, `id_peminjaman`, `alamat`, `biaya`, `
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `penulis`
+-- Table structure for table `penulis`
 --
 
 CREATE TABLE `penulis` (
@@ -325,7 +292,7 @@ CREATE TABLE `penulis` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `penulis`
+-- Dumping data for table `penulis`
 --
 
 INSERT INTO `penulis` (`id_penulis`, `nama_penulis`) VALUES
@@ -338,7 +305,7 @@ INSERT INTO `penulis` (`id_penulis`, `nama_penulis`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `petugas`
+-- Table structure for table `petugas`
 --
 
 CREATE TABLE `petugas` (
@@ -349,7 +316,7 @@ CREATE TABLE `petugas` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `petugas`
+-- Dumping data for table `petugas`
 --
 
 INSERT INTO `petugas` (`id_petugas`, `nama_petugas`, `username`, `password`) VALUES
@@ -359,7 +326,7 @@ INSERT INTO `petugas` (`id_petugas`, `nama_petugas`, `username`, `password`) VAL
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rak`
+-- Table structure for table `rak`
 --
 
 CREATE TABLE `rak` (
@@ -369,37 +336,16 @@ CREATE TABLE `rak` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `rak`
+-- Dumping data for table `rak`
 --
 
 INSERT INTO `rak` (`id_rak`, `nama_rak`, `lokasi`) VALUES
-(2, 'kaaa', 'bndung');
+(3, 'Rak A', 'Lantai 2 Ruang 2');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `rak_buku`
---
-
-CREATE TABLE `rak_buku` (
-  `id_rak` int(11) NOT NULL,
-  `nama_rak` varchar(100) DEFAULT NULL,
-  `lokasi` varchar(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `rak_buku`
---
-
-INSERT INTO `rak_buku` (`id_rak`, `nama_rak`, `lokasi`) VALUES
-(6, 'ri', 'der'),
-(10, 'olid', 'bandung'),
-(11, 'loker 01', 'pamarisen');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `reservasi`
+-- Table structure for table `reservasi`
 --
 
 CREATE TABLE `reservasi` (
@@ -411,18 +357,19 @@ CREATE TABLE `reservasi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `reservasi`
+-- Dumping data for table `reservasi`
 --
 
 INSERT INTO `reservasi` (`id_reservasi`, `id_anggota`, `id_buku`, `tanggal_reservasi`, `status`) VALUES
 (1, 1, 1, '2026-04-13', 'anomali'),
 (2, 2, 7, '2026-04-13', 'anomali'),
-(3, 1, 19, '2026-04-01', 'janda');
+(3, 1, 19, '2026-04-01', 'janda'),
+(4, 1, 32, '2026-04-25', 'oo');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transaksi`
+-- Table structure for table `transaksi`
 --
 
 CREATE TABLE `transaksi` (
@@ -435,7 +382,7 @@ CREATE TABLE `transaksi` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `transaksi`
+-- Dumping data for table `transaksi`
 --
 
 INSERT INTO `transaksi` (`id_transaksi`, `id_peminjaman`, `jenis`, `jumlah`, `status`, `tanggal`) VALUES
@@ -445,7 +392,7 @@ INSERT INTO `transaksi` (`id_transaksi`, `id_peminjaman`, `jenis`, `jumlah`, `st
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `ulasan`
+-- Table structure for table `ulasan`
 --
 
 CREATE TABLE `ulasan` (
@@ -458,7 +405,7 @@ CREATE TABLE `ulasan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `ulasan`
+-- Dumping data for table `ulasan`
 --
 
 INSERT INTO `ulasan` (`id_ulasan`, `id_buku`, `id_anggota`, `rating`, `komentar`, `tanggal`) VALUES
@@ -468,7 +415,7 @@ INSERT INTO `ulasan` (`id_ulasan`, `id_buku`, `id_anggota`, `rating`, `komentar`
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -484,7 +431,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data untuk tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `nama`, `email`, `username`, `password`, `role`, `foto`, `status`, `created_at`) VALUES
@@ -499,245 +446,221 @@ INSERT INTO `users` (`id`, `nama`, `email`, `username`, `password`, `role`, `fot
 --
 
 --
--- Indeks untuk tabel `anggota`
---
-ALTER TABLE `anggota`
-  ADD PRIMARY KEY (`id_anggota`);
-
---
--- Indeks untuk tabel `buku`
+-- Indexes for table `buku`
 --
 ALTER TABLE `buku`
   ADD PRIMARY KEY (`id_buku`);
 
 --
--- Indeks untuk tabel `buku_rak`
+-- Indexes for table `buku_rak`
 --
 ALTER TABLE `buku_rak`
-  ADD PRIMARY KEY (`id_`);
+  ADD PRIMARY KEY (`id_buku_rak`);
 
 --
--- Indeks untuk tabel `denda`
+-- Indexes for table `denda`
 --
 ALTER TABLE `denda`
   ADD PRIMARY KEY (`id_denda`);
 
 --
--- Indeks untuk tabel `detail_peminjaman`
+-- Indexes for table `detail_peminjaman`
 --
 ALTER TABLE `detail_peminjaman`
   ADD PRIMARY KEY (`id_detail`);
 
 --
--- Indeks untuk tabel `kategori`
+-- Indexes for table `kategori`
 --
 ALTER TABLE `kategori`
   ADD PRIMARY KEY (`id_kategori`);
 
 --
--- Indeks untuk tabel `peminjaman`
+-- Indexes for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
   ADD PRIMARY KEY (`id_peminjaman`);
 
 --
--- Indeks untuk tabel `penarikan`
+-- Indexes for table `penarikan`
 --
 ALTER TABLE `penarikan`
   ADD PRIMARY KEY (`id_penarikan`);
 
 --
--- Indeks untuk tabel `penerbit`
+-- Indexes for table `penerbit`
 --
 ALTER TABLE `penerbit`
   ADD PRIMARY KEY (`id_penerbit`);
 
 --
--- Indeks untuk tabel `pengaturan`
+-- Indexes for table `pengaturan`
 --
 ALTER TABLE `pengaturan`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `pengembalian`
+-- Indexes for table `pengembalian`
 --
 ALTER TABLE `pengembalian`
   ADD PRIMARY KEY (`id_pengembalian`);
 
 --
--- Indeks untuk tabel `pengiriman`
+-- Indexes for table `pengiriman`
 --
 ALTER TABLE `pengiriman`
   ADD PRIMARY KEY (`id_pengiriman`);
 
 --
--- Indeks untuk tabel `penulis`
+-- Indexes for table `penulis`
 --
 ALTER TABLE `penulis`
   ADD PRIMARY KEY (`id_penulis`);
 
 --
--- Indeks untuk tabel `petugas`
+-- Indexes for table `petugas`
 --
 ALTER TABLE `petugas`
   ADD PRIMARY KEY (`id_petugas`);
 
 --
--- Indeks untuk tabel `rak`
+-- Indexes for table `rak`
 --
 ALTER TABLE `rak`
   ADD PRIMARY KEY (`id_rak`);
 
 --
--- Indeks untuk tabel `rak_buku`
---
-ALTER TABLE `rak_buku`
-  ADD PRIMARY KEY (`id_rak`);
-
---
--- Indeks untuk tabel `reservasi`
+-- Indexes for table `reservasi`
 --
 ALTER TABLE `reservasi`
   ADD PRIMARY KEY (`id_reservasi`);
 
 --
--- Indeks untuk tabel `transaksi`
+-- Indexes for table `transaksi`
 --
 ALTER TABLE `transaksi`
   ADD PRIMARY KEY (`id_transaksi`);
 
 --
--- Indeks untuk tabel `ulasan`
+-- Indexes for table `ulasan`
 --
 ALTER TABLE `ulasan`
   ADD PRIMARY KEY (`id_ulasan`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `anggota`
---
-ALTER TABLE `anggota`
-  MODIFY `id_anggota` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
-
---
--- AUTO_INCREMENT untuk tabel `buku`
+-- AUTO_INCREMENT for table `buku`
 --
 ALTER TABLE `buku`
-  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_buku` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `buku_rak`
+-- AUTO_INCREMENT for table `buku_rak`
 --
 ALTER TABLE `buku_rak`
-  MODIFY `id_` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_buku_rak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT untuk tabel `denda`
+-- AUTO_INCREMENT for table `denda`
 --
 ALTER TABLE `denda`
   MODIFY `id_denda` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `detail_peminjaman`
+-- AUTO_INCREMENT for table `detail_peminjaman`
 --
 ALTER TABLE `detail_peminjaman`
-  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id_detail` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=50;
 
 --
--- AUTO_INCREMENT untuk tabel `kategori`
+-- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
   MODIFY `id_kategori` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
--- AUTO_INCREMENT untuk tabel `peminjaman`
+-- AUTO_INCREMENT for table `peminjaman`
 --
 ALTER TABLE `peminjaman`
-  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id_peminjaman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
--- AUTO_INCREMENT untuk tabel `penarikan`
+-- AUTO_INCREMENT for table `penarikan`
 --
 ALTER TABLE `penarikan`
   MODIFY `id_penarikan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
--- AUTO_INCREMENT untuk tabel `penerbit`
+-- AUTO_INCREMENT for table `penerbit`
 --
 ALTER TABLE `penerbit`
   MODIFY `id_penerbit` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `pengaturan`
+-- AUTO_INCREMENT for table `pengaturan`
 --
 ALTER TABLE `pengaturan`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `pengembalian`
+-- AUTO_INCREMENT for table `pengembalian`
 --
 ALTER TABLE `pengembalian`
   MODIFY `id_pengembalian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `pengiriman`
+-- AUTO_INCREMENT for table `pengiriman`
 --
 ALTER TABLE `pengiriman`
   MODIFY `id_pengiriman` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT untuk tabel `penulis`
+-- AUTO_INCREMENT for table `penulis`
 --
 ALTER TABLE `penulis`
   MODIFY `id_penulis` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT untuk tabel `petugas`
+-- AUTO_INCREMENT for table `petugas`
 --
 ALTER TABLE `petugas`
   MODIFY `id_petugas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT untuk tabel `rak`
+-- AUTO_INCREMENT for table `rak`
 --
 ALTER TABLE `rak`
-  MODIFY `id_rak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_rak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `rak_buku`
---
-ALTER TABLE `rak_buku`
-  MODIFY `id_rak` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
-
---
--- AUTO_INCREMENT untuk tabel `reservasi`
+-- AUTO_INCREMENT for table `reservasi`
 --
 ALTER TABLE `reservasi`
-  MODIFY `id_reservasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_reservasi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT untuk tabel `transaksi`
+-- AUTO_INCREMENT for table `transaksi`
 --
 ALTER TABLE `transaksi`
   MODIFY `id_transaksi` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `ulasan`
+-- AUTO_INCREMENT for table `ulasan`
 --
 ALTER TABLE `ulasan`
   MODIFY `id_ulasan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;

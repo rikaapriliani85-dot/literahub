@@ -1,79 +1,143 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 
-<div style="margin-bottom: 20px; font-family: Arial, sans-serif;">
-    
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-        <div>
-            <h2 style="margin: 0; display: inline-block; margin-right: 15px;">Data Peminjaman</h2>
-            
-            <a href="<?= base_url('peminjaman/create') ?>" 
-               style="text-decoration: none; padding: 8px 15px; background-color: #eea265; color: white; border-radius: 4px;">
-                + Tambah Peminjaman
-            </a>
-        </div>
+<style>
+    .container {
+        padding: 20px;
+    }
 
-        <a href="<?= base_url('/') ?>" 
-           style="text-decoration: none; padding: 8px 15px; background-color: #6c757d; color: white; border-radius: 4px;">
-            ← Kembali ke Dashboard
-        </a>
-    </div>
+    h3 {
+        margin-bottom: 15px;
+    }
 
-    <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-        <thead style="background-color: #f2f2f2;">
+    .btn-add {
+        display: inline-block;
+        padding: 8px 12px;
+        background: #28a745;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+        margin-bottom: 15px;
+    }
+
+    .btn-add:hover {
+        background: #218838;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        box-shadow: 0 0 10px rgba(0,0,0,0.08);
+    }
+
+    th {
+        background: #007bff;
+        color: white;
+        padding: 10px;
+        text-align: left;
+    }
+
+    td {
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    tr:hover {
+        background: #f2f2f2;
+    }
+
+    a {
+        text-decoration: none;
+        color: #007bff;
+    }
+
+    a:hover {
+        text-decoration: underline;
+    }
+
+    .status-pinjam {
+        color: red;
+        font-weight: bold;
+    }
+
+    .status-kembali {
+        color: green;
+        font-weight: bold;
+    }
+
+    img {
+        border-radius: 5px;
+    }
+</style>
+
+<div class="container">
+
+    <h3>📚 Data Peminjaman</h3>
+
+    <a class="btn-add" href="<?= base_url('peminjaman/create') ?>">+ Tambah Peminjaman</a>
+
+    <table>
+        <thead>
             <tr>
                 <th>No</th>
+                <th>Cover</th>
                 <th>Anggota</th>
-                <th>Buku</th>
-                <th>Sampul</th>
+                <th>Tanggal Pinjam</th>
+                <th>Tanggal Kembali</th>
                 <th>Status</th>
                 <th>Aksi</th>
+                <th>Denda</th>
             </tr>
         </thead>
 
         <tbody>
-            <?php if (!empty($data_peminjaman)): ?>
-                
-                <?php $no = 1; foreach ($data_peminjaman as $row): ?>
-                <tr>
-                    <td align="center"><?= $no++; ?></td>
-                    <td><?= $row['nama_anggota'] ?? '-' ?></td>
-                    <td><?= $row['judul'] ?? '-' ?></td>
+            <?php $no = 1; foreach ($peminjaman as $p): ?>
+            <tr>
+                <td><?= $no++ ?></td>
 
-                    <td>
-                        <?php if (!empty($row['cover'])): ?>
-                            <img src="<?= base_url('uploads/buku/' . $row['cover']) ?>" width="70">
-                        <?php else: ?>
-                            -
-                        <?php endif; ?>
-                    </td>
+                <!-- COVER -->
+                <td>
+                    <?php if (!empty($p['cover'])): ?>
+                        <?php $covers = explode(',', $p['cover']); ?>
+                        <img src="<?= base_url('uploads/buku/' . $covers[0]) ?>" width="50">
+                    <?php else: ?>
+                        -
+                    <?php endif; ?>
+                </td>
 
-                    <td align="center">
-                        <span style="
-                            padding: 3px 8px; 
-                            border-radius: 10px; 
-                            font-size: 12px; 
-                            color: white; 
-                            background-color: <?= ($row['status'] ?? '') == 'dipinjam' ? '#ffc107' : '#28a745' ?>;">
-                            <?= $row['status'] ?? '-' ?>
-                        </span>
-                    </td>
+                <!-- ANGGOTA -->
+                <td><?= $p['nama_anggota'] ?? '-' ?></td>
 
-                    <td align="center">
-                        <a href="<?= base_url('peminjaman/delete/' . $row['id_peminjaman']) ?>" 
-                           onclick="return confirm('Yakin ingin menghapus data ini?')" 
-                           style="color: red;">
-                           Hapus
-                        </a>
-                    </td>
-                </tr>
-                <?php endforeach; ?>
+                <!-- TANGGAL -->
+                <td><?= $p['tanggal_pinjam'] ?></td>
+                <td><?= $p['tanggal_kembali'] ?></td>
 
-            <?php else: ?>
-                <tr>
-                    <td colspan="6" align="center">Data belum ada</td>
-                </tr>
-            <?php endif; ?>
+                <!-- STATUS -->
+                <td>
+                    <?php if ($p['status'] == 'dipinjam'): ?>
+                        <span class="status-pinjam">Dipinjam</span>
+                    <?php else: ?>
+                        <span class="status-kembali">Kembali</span>
+                    <?php endif; ?>
+                </td>
+
+                <!-- AKSI -->
+                <td>
+                    <a href="<?= base_url('peminjaman/detail/' . $p['id_peminjaman']) ?>">Detail</a> |
+                    <a href="<?= base_url('peminjaman/edit/' . $p['id_peminjaman']) ?>">Edit</a> |
+                    <a href="<?= base_url('peminjaman/delete/' . $p['id_peminjaman']) ?>" onclick="return confirm('Hapus data?')">
+                        Hapus
+                    </a>
+                </td>
+
+                <!-- DENDA -->
+                <td>
+                    Rp <?= number_format($p['denda'] ?? 0, 0, ',', '.') ?>
+                </td>
+
+            </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 
